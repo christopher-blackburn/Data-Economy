@@ -16,7 +16,7 @@ In summary, Doc2vec builds on the Word2Vec algorithm that uses word "contexts" t
 
 To dampen the effects of job posting outliers, I train the Doc2Vec model using ONET categories as the document tags. In this sense, the model trains a vector representation for each ONET category. After experimenting with different parameter combinations, I find training the model using the CBOW algorithm, with 1000 dimension vectors, and at least 15 epochs yields the best results. 
 
-The code [doc2vec/doc2vec_training_test.py](doc2vec_training_test.py)
+The code [doc2vec_training_test.py](doc2vec/doc2vec_training_test.py)
 
 ## 2. Task Parsing
 One issue with using all visible text from the scraped job postings to train the LDA model is that other job related information may be comingled with the task data. In an effort to reduce commingled data, we combine two natural language processing techniques to extract task information from job postings. The first technique, known as <i>sentence boundary disambiguation</i>, is a technique used to parse sentences within a document by detecting the beginning and end of a sentence. The second technique is a part-of-speech tagging algorithm that classifies the part-of-speech, e.g. noun, verb, adverb, a word token belongs to in a sentence. 
