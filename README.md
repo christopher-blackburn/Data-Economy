@@ -32,6 +32,8 @@ Our second approach uses a similarity triplet method. In this approach, we const
 
 
 
+
+
 - The code [doc2vec_training_test.py]("doc2vec/doc2vec_training_test.py")
 - The size of the training/test datasets is in [train_file.csv]("Data/train_file.csv")
 - A feature file containing vocabulary size and the number of trained embeddings is in [feature_file.csv](Data/feature_file.csv)
