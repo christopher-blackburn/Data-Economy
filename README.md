@@ -1,6 +1,6 @@
 # Data-Economy
 
-This repository is dedicated to the project "Valuing the Data Economy: A Labor Costs Approach using Unsupervised Machine Learning". 
+This repository is dedicated to the project "Valuing the Data Economy: A Labor Costs Approach using Unsupervised Machine Learning". After we received the full Burning Glass Dataset on October 7th, 2020, the methodology changed from using Latent Dirichlet Allocation to Doc2Vec. The description contained in this is README pertains to the Doc2Vec version of the methodology that uses the Burning Glass Database. 
 
 # Pre-Processing Steps
 
