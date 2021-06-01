@@ -40,8 +40,6 @@ Each trained model is saved on ``serv570`` in the directory ``prediction/burning
 Finally, the code for constructing the ONET landmark embeddings figure can be found in [tsneLandmarks.py](doc2vec_viz/tsneLandmarks.py), and the figure produced from the code is [doc2vec_landmarks_inset.png](figures/doc2vec_landmarks_inset.png).
 
 
+## Data-Interfacing Occupations
 
-## 2. Task Parsing
-One issue with using all visible text from the scraped job postings to train the LDA model is that other job related information may be comingled with the task data. In an effort to reduce commingled data, we combine two natural language processing techniques to extract task information from job postings. The first technique, known as <i>sentence boundary disambiguation</i>, is a technique used to parse sentences within a document by detecting the beginning and end of a sentence. The second technique is a part-of-speech tagging algorithm that classifies the part-of-speech, e.g. noun, verb, adverb, a word token belongs to in a sentence. 
-
-The code [get_tasks.py](get_tasks.py) 
+The second component of the time-use proxy is an estimate for the fraction of jobs in an occupation that interface with data. To identify these jobs, I use Burning Glass' Skills Database. Using the database, we can identify jobs that are likely interfacing with data based on the skills required to perform the job's duties and responsibilities. 
