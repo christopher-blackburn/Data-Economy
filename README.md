@@ -2,6 +2,26 @@
 
 This repository is dedicated to the project "Valuing the Data Economy: A Labor Costs Approach using Unsupervised Machine Learning". After we received the full Burning Glass Dataset on October 7th, 2020, the methodology changed from using Latent Dirichlet Allocation to Doc2Vec. The description contained in this is README pertains to the Doc2Vec version of the methodology that uses the Burning Glass Database. 
 
+# Introduction
+
+The collection, analysis, and distribution of data is a hallmark of modern economic activity. The rapid proliferation of this so-called "data economy" has instantiated a call to action among academic, political, and public forums to better understand the economic value created by these activities. However, estimating the value of the data economy is complicated by the fact that the quantity of data collected is not readily observed and companies have strong incentives to hoard their most valuable data. Moreover, traditional economic surveys have been slow to keep pace with the rapidly evolving landscape of the data economy, making survey-based approaches for valuation untenable. With these complications, producing an accurate, reliable, and timely estimate for the value of the data economy requires extending traditional measurement approaches to leverage new data sources. 
+
+Confronting this challenge, I introduce a new method for valuing the data economy using online job postings. The method applies an unsupervised machine learning algorithm to online job advertisements to estimate the labor costs of data-related activities. Our method augments the traditional labor costs methodology by proxying time-use factors using only the language contained in job posting text. Using this method, we estimate data-related (nominal) labor costs grew from $100 billion in 2010 to more than $200 billion, representing an average annual growth rate of 9 percent. 
+
+We elect to estimate the value of the data economy using spending on data-related tasks for two reasons. First, other approaches, such as transaction-based approaches, may severely understate spending on data if only a small fraction of the data economy takes place on open markets. A growing concern is related to the amount of data automatically collected from digital devices, such as smartphones and laptops. The widespread diffusion of these devices, along with a concomitant acceleration in digital service offerings, suggests a non-trivial fraction of data may collected outside of standard market transactions. 
+
+Second, the labor costs approach taken in this paper is consistent with current national accounting practices. This is important because current national accounting practices exclude the value of data from the production boundary. Most countries include estimates for expenditures on software and databases, but the underlying value of the data included in the database is excluded from the production boundary. Since our approach is consistent with national accounting practices, the estimates produced by our method can be incorporated into national accounting frameworks in a straightforward way.
+
+# Labor Costs Estimation and Time-use Proxies
+
+The labor costs approach is a common method for constructing spending estimates when transaction or survey data is limited or not available. For example, many statistical agencies, such as the US Bureau of Economic Analysis, use a labor costs approach to estimate spending levels in a variety of hard-to-measure categories, such as on own-account software production.
+
+Estimating spending levels using a labor costs approach usually requires making some assumptions about the occupations that should be included in the estimate and the amount of time workers in these occupations spend performing relevant tasks. First, the determination of what occupations should be included in the estimate is usually based on whether an occupation performs tasks that are relevant to the spending category. For example, the relevant occupations to consider in a labor costs estimate for own-account software spending includes software developers, database administrators, etc since these occupations are most likely performing tasks related to software development. Second, once these occupations are identified, total hours worked must be scaled by a time-use factor, which reflects how often these occupation engage in these category-relevant tasks. However, time-use factors are rarely observed in practice, and most statistical agencies assume 50 percent in lieu of any estimate derived from data. 
+
+Given occupational time-use data is rarely available, we introduce an alternative approach to labor costs estimation that uses the task content of occupations as a proxy for time-use proportions.  
+
+
+
 # Pre-Processing Steps
 
 ## 1. Unpack the Burning Glass Database
