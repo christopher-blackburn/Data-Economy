@@ -32,6 +32,8 @@ With broad brush strokes laid out above, the details of the program are containe
 
 Lastly, the performance file containing the performance metrics is in [performance_file.csv](Data/performance_file.csv). There are four columns of data in the file: ``year, nn_score, nn_rank, triplet_score``. The ``year`` column is self-explanatory. The ``nn_score`` and ``nn_rank`` columns correspond to the nearest neighbor evaluation method discussed above. The ``nn_score`` is the bootstrapped performance metric using the nearest neighbor criteria, and the ``nn_rank`` column gives the average position for instances where the ONET category is in the Top 10 nearest neighbors. Lastly, the ``triplet_score`` column is the bootstrapped performance metric using the triplet method. 
 
+Each trained model is saved on ``serv570`` in the directory ``prediction/burning_glass/Chris/Word2Vec`` (I know the folder name is misleading, but Doc2Vec is basically Word2Vec with a twist!). Unless you feel a stron desire to re-train the models, you can use these files to load the models for yourself. 
+
 
 
 ## 2. Task Parsing
