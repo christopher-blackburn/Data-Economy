@@ -18,15 +18,17 @@ The labor costs approach is a common method for constructing spending estimates 
 
 Estimating spending levels using a labor costs approach usually requires making some assumptions about the occupations that should be included in the estimate and the amount of time workers in these occupations spend performing relevant tasks. First, the determination of what occupations should be included in the estimate is usually based on whether an occupation performs tasks that are relevant to the spending category. For example, the relevant occupations to consider in a labor costs estimate for own-account software spending includes software developers, database administrators, etc since these occupations are most likely performing tasks related to software development. Second, once these occupations are identified, total hours worked must be scaled by a time-use factor, which reflects how often these occupation engage in these category-relevant tasks. However, time-use factors are rarely observed in practice, and most statistical agencies assume 50 percent in lieu of any estimate derived from data. 
 
-Given occupational time-use data is rarely available, we introduce an alternative approach to labor costs estimation that uses the task content of occupations as a proxy for time-use proportions.  
+Given occupational time-use data is rarely available, we introduce an alternative approach to labor costs estimation that uses the language contained in job postings to proxy time-use factors. 
 
 
 
 # Pre-Processing Steps
 
-## 1. Unpack the Burning Glass Database
+## Unpacking the Burning Glass Database
 
 The Burning Glass database consists of more than 200 million job postings from 2010 to 2019. The structured databases are contained in several ``zip`` files, while the unstructured data is contained in XML files. 
+
+# Proxying Time-Use Factors
 
 ## Doc2Vec Model Training and Evaluation
 
