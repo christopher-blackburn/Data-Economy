@@ -28,16 +28,11 @@ Our second approach uses a similarity triplet method. In this approach, we const
 
 ### The Code and Relevant Output
 
+With broad brush strokes laid out above, the details of the program are contained in the code [doc2vec_training_test.py](doc2vec/doc2vec_training_test.py). The sections of the code are pretty self-contained and I have provided detailed to comments that highlight what each line of code is doing. For data on the the size of the training/test datasets for each year, consult the [train_file.csv](Data/train_file.csv) file. A feature file containing vocabulary size and the number of trained embeddings is in [feature_file.csv](Data/feature_file.csv). 
+
+Lastly, the performance file containing the performance metrics is in [performance_file.csv](Data/performance_file.csv). There are four columns of data in the file: ``year, nn_score, nn_rank, triplet_score``. The ``year`` column is self-explanatory. The ``nn_score`` and ``nn_rank`` columns correspond to the nearest neighbor evaluation method discussed above. The ``nn_score`` is the bootstrapped performance metric using the nearest neighbor criteria, and the ``nn_rank`` column gives the average position for instances where the ONET category is in the Top 10 nearest neighbors. Lastly, the ``triplet_score`` column is the bootstrapped performance metric using the triplet method. 
 
 
-
-
-
-
-- The code [doc2vec_training_test.py]("doc2vec/doc2vec_training_test.py")
-- The size of the training/test datasets is in [train_file.csv]("Data/train_file.csv")
-- A feature file containing vocabulary size and the number of trained embeddings is in [feature_file.csv](Data/feature_file.csv)
-- A performance file containing the performance metrics is in [performance_file.csv]("Data/performance_file.csv")
 
 ## 2. Task Parsing
 One issue with using all visible text from the scraped job postings to train the LDA model is that other job related information may be comingled with the task data. In an effort to reduce commingled data, we combine two natural language processing techniques to extract task information from job postings. The first technique, known as <i>sentence boundary disambiguation</i>, is a technique used to parse sentences within a document by detecting the beginning and end of a sentence. The second technique is a part-of-speech tagging algorithm that classifies the part-of-speech, e.g. noun, verb, adverb, a word token belongs to in a sentence. 
