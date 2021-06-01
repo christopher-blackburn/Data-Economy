@@ -26,11 +26,15 @@ After training the Doc2Vec model, I evaluate the model's performance using two c
 
 Our second approach uses a similarity triplet method. In this approach, we construct a triplet consisting of three job postings. Two of the three job postings are chosen to be in the same ONET category, and the final posting is chosen at random from a different ONET category. To compute the accuracy metric, we assign a binary score to each triplet. The score is equal to one when the cosine distance between the two job postings in the same ONET category is less than the distance between these postings and the job posting from a separate ONET category. The aggregate performance metric is then the sum of all binary scores divided by the total number of triplets constructed from the sample. 
 
+### The Code and Relevant Output
+
+
+
 
 
 - The code [doc2vec_training_test.py]("doc2vec/doc2vec_training_test.py")
 - The size of the training/test datasets is in [train_file.csv]("Data/train_file.csv")
-- A feature file containing vocabulary size and the number of trained embeddings is in [feature_file.csv]("Data/feature_file.csv")
+- A feature file containing vocabulary size and the number of trained embeddings is in [feature_file.csv]("Data Economy/Data/feature_file.csv")
 - A performance file containing the performance metrics is in [performance_file.csv]("Data/performance_file.csv")
 
 ## 2. Task Parsing
