@@ -37,7 +37,7 @@ Lastly, the performance file containing the performance metrics is in [performan
 
 Each trained model is saved on ``serv570`` in the directory ``prediction/burning_glass/Chris/Word2Vec`` (I know the folder name is misleading, but Doc2Vec is basically Word2Vec with a twist!). Unless you have a strong desire to re-train the models, you can use these files to load the models for yourself. 
 
-Finally, the code for constructing the ONET landmark embeddings figure can be found in [tsneLandmarks.py](tsne_viz/tsneLandmarks.py), and the figure produced from the code is [doc2vec_landmarks_inset.png](figures/doc2vec_landmarks_inset.png).
+Finally, the code for constructing the ONET landmark embeddings figure can be found in [tsneLandmarks.py](doc2vec_viz/tsneLandmarks.py), and the figure produced from the code is [doc2vec_landmarks_inset.png](figures/doc2vec_landmarks_inset.png).
 
 
 
