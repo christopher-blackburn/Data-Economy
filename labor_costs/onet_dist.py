@@ -276,7 +276,40 @@ similarity metrics to estimate
 the time-use adjustment factor. 
 '''
 
+onet_annual_data = pd.read_csv('E:/Research1/prediction/burning_glass/Chris/Output/onet_data.csv')
+
+# Compute the top 15 occupations with the highest data skill percentag
+onet_annual_mean = onet_annual_data.groupby('ONET')['prop_data'].mean().reset_index()
+
+onet_top_data = onet_annual_mean.sort_values(by='prop_data',ascending=False).head(15)
+
+model = Doc2Vec.load('E:/Research1/prediction/burning_glass/Chris/Word2Vec/w2v2011')
+
+model_tags = model.docvecs.index2entity
+model_vecs = [model.docvecs[tag] for tag in model_tags]
+
+data_vecs = []
+for idx, tag in enumerate(model_tags):
+    if tag in list(onet_top_data['ONET']):
+        data_vecs.append(idx)
+        
+data_vectors = [model_vecs[idx] for idx in data_vecs]
 
 
+from sklearn.metrics.pairwise import cosine_similarity
 
+min_distances = []
+for idx, vec in enumerate(model_vecs):
+    dist = 0.0
+    for data_vec in data_vectors:
+        if cosine_similarity(vec.reshape(1,1000),data_vec.reshape(1,1000)) > dist:
+            dist = cosine_similarity(vec.reshape(1,1000),data_vec.reshape(1,1000))
+    min_distances.append([model_tags[idx],dist[0][0]])
+    
+import numpy as np
+# Create a dataframe of the distances and merge with the data
+distDF = pd.DataFrame.from_dict(dict(ONET=np.array(min_distances)[:,0],
+                                    dist=np.array(min_distances)[:,1]))
+
+onet_dist = pd.merge(onet_annual_data,distDF,on='ONET',how='inner',validate='m:1')
 
