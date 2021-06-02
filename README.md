@@ -122,6 +122,8 @@ Here is a list of the top 20 occupations (that are not data-intensive occupation
 
 Based on these estimates, I garner that we are being very conservative in how we estimate time-use factors, especially given the base assumption is 50 percent. 
 
+Finally, the code for performing these routines can be found in [onet_dist.py](labor_costs/onet_dist.py) and the (cleaned) data that is produced by this program is [onet_distance.csv](Data/onet_distance.csv). 
+
 # Labor Costs Estimate
 
 With estimates for the time-use adjustment factor and p_w, we are ready to construct the labor costs estimate. At this point, the labor costs estimate is straightforward. We use OES data to collect information and salary and employment for each SOC category (note: even though the analysis is conducted for ONET codes, we must aggregate this to SOC codes for consistency with the OES data. The aggregation is straightforward for p_w since this can be computed for SOC categories directly. In contrast, I compute a weighted-average distance for the cosine similarity metric for each SOC category. The code for the aggregation is found in [oes_costs.py](labor_costs/oes_costs.py). 
