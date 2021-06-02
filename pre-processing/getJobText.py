@@ -9,9 +9,6 @@ from xml.dom import minidom
 import pandas as pd 
 
 
-# Set the working directory to the sample XML files
-os.chdir('/Users/cblackburn/Downloads')
-
 # Parse the XML document 
 mydoc = minidom.parse('US_XML_AddFeed_20180702_20180708.xml')
 
@@ -43,7 +40,3 @@ for node in items:
 
 # Convert to a pandas DataFrame
 job_info_df = pd.DataFrame(job_info_array,columns=['JobID','JobText'])
-
-# Save the data 
-os.chdir('/Users/cblackburn/Dropbox/Data Economy/BurnGlassData')
-job_info_df.to_csv('burn_glass_test.csv',index=False)
