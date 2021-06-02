@@ -1,12 +1,18 @@
+import pandas as pd
+import glob
+from gensim.models.doc2vec import Doc2Vec
+
 '''
 -----------------------------------------------
 Extract possible software development skills
 -----------------------------------------------
 In this initial section of code, I start by 
-
+extracting candidate skills that are 
+related to software development. I will
+manually go through and check whether 
+these skills are relevant for software
+development.
 '''
-
-import pandas as pd
 
 
 softdev_annual_list = []
@@ -56,16 +62,37 @@ softdev_skills.to_csv('E:/Research1/prediction/burning_glass/Chris/Output/softde
 
 
 '''
+-----------------------------------------------
 Manual identification of skills
+-----------------------------------------------
+After outputing the results above, I go through
+and label skills as software development or not.
+The next few lines of code update the software
+develop skills list based on manual labeling.
 '''
 softdev_skills = pd.read_csv('E:/Research1/prediction/burning_glass/Chris/Output/softdev_skills_manual.csv')
 
 softdev_skills = softdev_skills[softdev_skills['pass1'] == 1]
 
+softdev_skills = softdev_skills['SkillCluster'].unique()
+
 
 '''
+-----------------------------------------------
 Overlap between data and software skills
+-----------------------------------------------
+A couple functions for identifying data-related
+and software development skills. Note: I have
+already gone through the data-related skills
+and found the keyword search to be pretty good
+at identify data-related skills. 
+
+The following code computes number of data-related
+and software development skills for each job
+posting. It then checks for overlap.
 '''
+
+# Check if data-related skill
 def is_data_skill(x):
     
     data = 0 
@@ -132,7 +159,7 @@ for year in range(2010,2020):
     
     data = pd.concat(job_skills_annual).drop_duplicates()
     
-    # A Function for computing the overlap between data skills and software development skills
+# A Function for computing the overlap between data skills and software development skills
 def overlap(x):
     
     if x['data_skill'] >  0 and x['softdev_skill'] > 0:
@@ -159,6 +186,14 @@ def bin_con(x):
 data['data_skill'] = data['data_skill'].apply(lambda x: bin_con(x))
 data['softdev_skill'] = data['softdev_skill'].apply(lambda x: bin_con(x))
 
+'''
+-----------------------------------------------
+Get ONET Categories for Each Job Posting
+-----------------------------------------------
+In this section, we grab the ONET category for
+each job posting to merge the Skills dataset
+with ONET categories.
+'''
 def annual_sample(year):
     
     # Update the directory information
@@ -196,9 +231,52 @@ def annual_sample(year):
         
     # Concatenate all of the monthly files into a single dataset
     job_data = pd.concat(rel_files).drop_duplicates()
+    
+    job_data['year'] = year
         
     return job_data
 
+# ONET Categories for each job posting
 annual_data = pd.concat([annual_sample(year) for year in range(2010,2020)]).drop_duplicates()
 
-softdev_skills = softdev_skills['SkillCluster'].unique()
+# Merge the datasets together
+annual_onet_data = pd.merge(data,annual_data,on='BGTJobId', how='inner',validate='1:1')
+
+'''
+-----------------------------------------------
+Compute an estimate for p_w
+-----------------------------------------------
+In this section, we grab the ONET category for
+each job posting to merge the Skills dataset
+with ONET categories.
+'''
+
+# Compute total ONET postings by year
+annual_onet_counts = annual_data.groupby(['ONET','year']).count().reset_index()
+annual_onet_counts.columns = ['ONET','year','total_onet']
+
+# Compute total data skills
+annual_onet_data = annual_onet_data.groupby(['ONET','year']).sum().reset_index()
+
+# Merge with the totals
+annual_onet_data = pd.merge(annual_onet_data,annual_onet_counts,on=['ONET','year'],how='inner',validate='1:1')
+
+# Compute the proportion of workers with at least one data-related skill
+annual_onet_data['prop_data'] = annual_onet_data['data_skill']/annual_onet_data['total_onet']
+
+# Save the data
+#annual_onet_data.to_csv('E:/Research1/prediction/burning_glass/Chris/Output/onet_data.csv',index=False)
+
+'''
+-----------------------------------------------
+Compute an estimate for time-use adj. factor
+-----------------------------------------------
+In this section, I use Doc2Vec to compute
+similarity metrics to estimate
+the time-use adjustment factor. 
+'''
+
+
+
+
+
