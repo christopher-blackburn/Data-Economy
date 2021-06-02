@@ -1,4 +1,15 @@
 import pandas as pd 
+import matplotlib.pyplot as plt
+import numpy as np
+
+'''
+----------------------------------------
+Load the OES data
+----------------------------------------
+This bit of code loops through the 
+OES data and loads them into a list
+for concatenation.
+'''
 
 # Import the data
 onet_dist = pd.read_csv('E:/Research1/prediction/burning_glass/Chris/Output/onet_distance.csv')
@@ -59,33 +70,64 @@ for year in range(2010,2020):
     
     print('{} appended'.format(year))
     
-  occ_data = pd.concat(occ_data_list)
-  
-  onet_dist['w_dist'] = onet_dist['ones']*onet_dist['dist']
+# Concatenate the data together
+occ_data = pd.concat(occ_data_list)
 
+'''
+----------------------------------------
+Compute the labor cost estimate
+----------------------------------------
+Special Note:
+-------------
+There is something bizarre going on with
+2019. I drop this from the visualization
+but it is worth checking into what is 
+going on. My suspicion is that
+the issue is with the OES data for this
+year, but I am not certain. 
+'''
+  
+# Numerator of a weighted-average distance
+onet_dist['w_dist'] = onet_dist['ones']*onet_dist['dist']
+
+# Sum up the data by SOC category
 soc_dist = onet_dist.groupby(['soc','year'])[['ones','data_skill_bin','w_dist']].sum().reset_index()
 
+# This is the weighted-average distance
 soc_dist['w_dist'] = soc_dist['w_dist']/soc_dist['ones']
 
+# P_omega computation
 soc_dist['p_omega'] = soc_dist['data_skill_bin']/soc_dist['ones']
 
+# Keep relevant variables
 soc_dist = soc_dist[['soc','year','w_dist','p_omega']]
 
+# Rename the columns
 soc_dist.columns = ['OCC_CODE','YEAR','w_dist','p_omega']
 
+# Merge the our estimates with salary and employment data from OES
 occDist = pd.merge(occ_data,soc_dist,on=['OCC_CODE','YEAR'],how='inner',validate='1:1')
 
+# Force missing salaries to 0 (results in conservative estimate)
 occDist['A_MEAN'] = (pd.to_numeric(occDist['A_MEAN'],errors='coerce').fillna(0))
 
+# Compute the spending estimate for each occupation
 occDist['data_spending'] = occDist['w_dist']*occDist['p_omega']*occDist['TOT_EMP']*occDist['A_MEAN']
 
+# Compute total spending by year
 dataDF = occDist.groupby('YEAR')['data_spending'].sum().reset_index()
 
+# Dropping 2019 because of possible data discrepancies
 dataDF = dataDF[dataDF['YEAR'] < 2019]
 
-import matplotlib.pyplot as plt
-import numpy as np
 
+'''
+----------------------------------------
+Visualize spending and growth
+----------------------------------------
+Visualizing spending and growth in 
+nominal spending. 
+'''
 
 fig, (ax1, ax2) = plt.subplots(nrows=2, sharex=True,figsize=(6,4))
 
