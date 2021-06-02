@@ -26,7 +26,7 @@ Given occupational time-use data is rarely available, we introduce an alternativ
 
 ## Unpacking the Burning Glass Database
 
-The Burning Glass database consists of more than 200 million job postings from 2010 to 2019. The structured databases are contained in several ``zip`` files, while the unstructured data is contained in XML files. 
+The Burning Glass database consists of more than 200 million job postings from 2010 to 2019. The structured databases are contained in several ``zip`` files, while the unstructured data is contained in XML files. The main function for extracting the job posting text can be found in [getJobText.py](pre-processing/getJobText.py). You will need to modify the code to extract text from lists of filenames, but this is a straightforward extension (i.e., just use it in a loop). 
 
 # 2. Proxying Time-Use Factors
 
@@ -37,8 +37,6 @@ To proxy time-use factors, we need to come up with an estimate for the similarit
 In summary, Doc2vec builds on the Word2Vec algorithm that uses word "contexts" to train a shallow neural network. There are two approaches, continuous bag-of-words and skip-gram. Each approach trains the weights of the neural network to either predict a word's context (skip-gram) or using a word's context to predict itself (continuous bag-of-words). In either case, the trained weights of the neural network correspond to the vector representations of each word in the vocabulary. Doc2Vec builds on this approach by adding a "document tag" that encodes document-level attributes into the Word2Vec model. As a consequence, document vectors are trained alongside word vectors, resulting in a dense vector representation for each document tag.
 
 To dampen the effects of job posting outliers, I train the Doc2Vec model using ONET categories as the document tags. As a consequence, the model trains a vector representation for each ONET category rather than each document. After experimenting with different parameter combinations, I find training the model using the CBOW algorithm, with 1000 dimensions, 15 epochs, a window size of 3 words, and a hierarchical softmax classifier yields the best results. 
-
-
 
 Due to limits on our computational resources, I limit the size of the training sample and elect to train a Doc2Vec model for each year in the data. To construct the annual training sample, I start by randomly choosing a week of job postings for a given month. I repeat this sampling process for each month so each month is represented by a weekly job posting file. In other words, our annual training sample is a composite of 12 weekly job postings files. 
 
@@ -120,10 +118,15 @@ Here is a list of the top 20 occupations (that are not data-intensive occupation
 19. 15-1199.00 - Computer Occupations, All Other - 0.10
 20. 15-1134.00 - Web Developers - 0.09
 
+### Relevant code and output
+
 Based on these estimates, I garner that we are being very conservative in how we estimate time-use factors, especially given the base assumption is 50 percent. 
 
 Finally, the code for performing these routines can be found in [onet_dist.py](labor_costs/onet_dist.py) and the (cleaned) data that is produced by this program is [onet_distance.csv](Data/onet_distance.csv). 
 
 # 3. Labor Costs Estimate
 
-With estimates for the time-use adjustment factor and p_w, we are ready to construct the labor costs estimate. At this point, the labor costs estimate is straightforward. We use OES data to collect information and salary and employment for each SOC category (note: even though the analysis is conducted for ONET codes, we must aggregate this to SOC codes for consistency with the OES data. The aggregation is straightforward for p_w since this can be computed for SOC categories directly. In contrast, I compute a weighted-average distance for the cosine similarity metric for each SOC category. The code for the aggregation is found in [oes_costs.py](labor_costs/oes_costs.py) and the main figure for checking results is in [data_spending_growth.png](figures/data_spending_growth.png).
+With estimates for the time-use adjustment factor and p_w, we are ready to construct the labor costs estimate. At this point, the labor costs estimate is straightforward. We use OES data to collect information and salary and employment for each SOC category (note: even though the analysis is conducted for ONET codes, we must aggregate this to SOC codes for consistency with the OES data. The aggregation is straightforward for p_w since this can be computed for SOC categories directly. In contrast, I compute a weighted-average distance for the cosine similarity metric for each SOC category. 
+
+### Relevant code and output
+The code for the aggregation is found in [oes_costs.py](labor_costs/oes_costs.py) and the main figure for checking results is in [data_spending_growth.png](figures/data_spending_growth.png).
