@@ -95,7 +95,7 @@ The majority of these make sense, with the exception of Hearing Aid Specialists,
 Before moving on, why do I think this works? The simple algebraic equivalence shows the time-use factor can be decomposed into two components. The first component the time-use adjustment factor measures the relative, average frequency an occupation is working with data. The second component, p_w, is an estimate for the percentage of workers in an occupation that are working with data in some capacity. Since the decomposition is multiplicative, these two components work to re-inforce or dampen the effects of each individual component. For example, even though an occupation may reside nearby a landmark data occupation, this does not necessarily imply a higher estimate for time-use since very few workers may be interfacing with data, and vice versa. 
 
 
-Here is a list of the top 20 occupations (that are not data-intensive occupations) based on time-use:
+Here is a list of the top 20 occupations (that are not data-intensive landmarks) based on time-use:
 
 1. 19-3099.00 - Social Scientists and Related Workers, All Other -  0.27 
 2. 15-1199.04 - Geospatial Information Scientists and Technologists - 0.20
