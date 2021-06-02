@@ -1,12 +1,12 @@
 # Data-Economy
 
-This repository is dedicated to the project "Valuing the Data Economy: A Labor Costs Approach using Unsupervised Machine Learning". After we received the full Burning Glass Dataset on October 7th, 2020, the methodology changed from using Latent Dirichlet Allocation to Doc2Vec. The description contained in this is README pertains to the Doc2Vec version of the methodology that uses the Burning Glass Database. 
+This repository is dedicated to the project "Valuing the Data Economy: A Labor Costs Approach using Unsupervised Machine Learning". After we received the Burning Glass Dataset on October 7th, 2020, the methodology changed from using Latent Dirichlet Allocation to Doc2Vec. The description contained in this is README pertains to the Doc2Vec version of the methodology that uses the Burning Glass Database. Any reference to Latent Dirichlet Allocation should be disregarded within this repository. 
 
 # Introduction
 
 The collection, analysis, and distribution of data is a hallmark of modern economic activity. The rapid proliferation of this so-called "data economy" has instantiated a call to action among academic, political, and public forums to better understand the economic value created by these activities. However, estimating the value of the data economy is complicated by the fact that the quantity of data collected is not readily observed and companies have strong incentives to hoard their most valuable data. Moreover, traditional economic surveys have been slow to keep pace with the rapidly evolving landscape of the data economy, making survey-based approaches for valuation untenable. With these complications, producing an accurate, reliable, and timely estimate for the value of the data economy requires extending traditional measurement approaches to leverage new data sources. 
 
-Confronting this challenge, I introduce a new method for valuing the data economy using online job postings. The method applies an unsupervised machine learning algorithm to online job advertisements to estimate the labor costs of data-related activities. Our method augments the traditional labor costs methodology by proxying time-use factors using only the language contained in job posting text. Using this method, we estimate data-related (nominal) labor costs grew from $100 billion in 2010 to more than $200 billion, representing an average annual growth rate of 9 percent. 
+Confronting this challenge, I introduce a new method for valuing the data economy using online job postings. The method applies an unsupervised machine learning algorithm to online job advertisements to estimate the labor costs of data-related activities. Our method augments the traditional labor costs methodology by proxying time-use factors using only the language contained in job posting text. Using this method, we estimate data-related (nominal) labor costs grew from $100 billion in 2010 to more than $200 billion, representing an average annual growth rate of 9.7 percent. 
 
 We elect to estimate the value of the data economy using spending on data-related tasks for two reasons. First, other approaches, such as transaction-based approaches, may severely understate spending on data if only a small fraction of the data economy takes place on open markets. A growing concern is related to the amount of data automatically collected from digital devices, such as smartphones and laptops. The widespread diffusion of these devices, along with a concomitant acceleration in digital service offerings, suggests a non-trivial fraction of data may collected outside of standard market transactions. 
 
@@ -22,13 +22,13 @@ Given occupational time-use data is rarely available, we introduce an alternativ
 
 
 
-# Pre-Processing Steps
+# 1. Pre-Processing Steps
 
 ## Unpacking the Burning Glass Database
 
 The Burning Glass database consists of more than 200 million job postings from 2010 to 2019. The structured databases are contained in several ``zip`` files, while the unstructured data is contained in XML files. 
 
-# Proxying Time-Use Factors
+# 2. Proxying Time-Use Factors
 
 ## Doc2Vec Model Training and Evaluation
 
@@ -124,6 +124,6 @@ Based on these estimates, I garner that we are being very conservative in how we
 
 Finally, the code for performing these routines can be found in [onet_dist.py](labor_costs/onet_dist.py) and the (cleaned) data that is produced by this program is [onet_distance.csv](Data/onet_distance.csv). 
 
-# Labor Costs Estimate
+# 3. Labor Costs Estimate
 
 With estimates for the time-use adjustment factor and p_w, we are ready to construct the labor costs estimate. At this point, the labor costs estimate is straightforward. We use OES data to collect information and salary and employment for each SOC category (note: even though the analysis is conducted for ONET codes, we must aggregate this to SOC codes for consistency with the OES data. The aggregation is straightforward for p_w since this can be computed for SOC categories directly. In contrast, I compute a weighted-average distance for the cosine similarity metric for each SOC category. The code for the aggregation is found in [oes_costs.py](labor_costs/oes_costs.py) and the main figure for checking results is in [data_spending_growth.png](figures/data_spending_growth.png).
