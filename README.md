@@ -126,7 +126,8 @@ Finally, the code for performing these routines can be found in [onet_dist.py](l
 
 # 3. Labor Costs Estimate
 
-With estimates for the time-use adjustment factor and p_w, we are ready to construct the labor costs estimate. At this point, the labor costs estimate is straightforward. We use OES data to collect information and salary and employment for each SOC category (note: even though the analysis is conducted for ONET codes, we must aggregate this to SOC codes for consistency with the OES data. The aggregation is straightforward for p_w since this can be computed for SOC categories directly. In contrast, I compute a weighted-average distance for the cosine similarity metric for each SOC category. 
+With estimates for the time-use adjustment factor and p_w, we are ready to construct the labor costs estimate. At this point, the labor costs estimate is straightforward. We use OES data for salary and employment values for each SOC category (note: even though the analysis is conducted for ONET codes, we must aggregate this to SOC codes for consistency with the OES data. The aggregation is straightforward for p_w since this can be computed for SOC categories directly. Furthermore, I compute a weighted-average distance for the cosine similarity metric for each SOC category. 
 
 ### Relevant code and output
+
 The code for the aggregation is found in [oes_costs.py](labor_costs/oes_costs.py) and the main figure for checking results is in [data_spending_growth.png](figures/data_spending_growth.png).
