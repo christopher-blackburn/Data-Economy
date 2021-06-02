@@ -75,3 +75,54 @@ With these skills identified, I create an indicator variable that signifies whet
 Once the estimate for p_w is constructed, the time-use adjustment factor needs to be proxied. To proxy this factor, I use the ONET embeddings to perform similarity analyses. Performing similarity analyses across all ONET categories would be a silly exercise. For instance, we do not care how similar a truck driver is to a fast food clerk because this tells us nothing about data-related job responsibilities for either occupation. Instead, I want to anchor the similarity analysis around comparisons to "known" data-intensive occupations. In this scenario, we are asking how similar a truck driver is to a data scientist. To select a set of "known" data-intensive occupations, I use p_w as a proxy to sort occupations by their "data-intensiveness". My assumption here is that when a higher fraction of job openings are required to have a data-related skillset, they are more likely to interface with data on routine basis. To reduce random fluctuations, I average p_w over all years and then take the 15 occupations with the highest average p_w. The occupations are as follows:
 
 
+
+ONET
+
+prop_data
+
+
+
+716
+43-9021.00 0.953296 
+
+121
+15-1141.00 0.752208 
+
+133
+15-1199.06 0.738357 
+
+134
+15-1199.07 0.680748 
+
+279
+19-4061.00 0.656849 
+
+113
+15-1111.00 0.655171 
+
+144
+15-2041.01 0.646895 
+
+143
+15-2041.00 0.636988 
+
+135
+15-1199.08 0.631450 
+
+230
+19-1029.01 0.605990 
+
+725
+43-9111.00 0.573342 
+
+255
+19-3022.00 0.536608 
+
+509
+29-2092.00 0.492055 
+
+132
+15-1199.05 0.472552 
+
+145
+15-2041.02 0.470103 
