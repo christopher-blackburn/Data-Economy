@@ -74,7 +74,6 @@ With these skills identified, I create an indicator variable that signifies whet
 
 Once the estimate for p_w is constructed, the time-use adjustment factor needs to be proxied. To proxy this factor, I use the ONET embeddings to perform similarity analyses. Performing similarity analyses across all ONET categories would be a silly exercise. For instance, we do not care how similar a truck driver is to a fast food clerk because this tells us nothing about data-related job responsibilities for either occupation. Instead, I want to anchor the similarity analysis around comparisons to "known" data-intensive occupations. In this scenario, we are asking how similar a truck driver is to a data scientist. To select a set of "known" data-intensive occupations, I use p_w as a proxy to sort occupations by their "data-intensiveness". My assumption here is that when a higher fraction of job openings are required to have a data-related skillset, they are more likely to interface with data on routine basis. To reduce random fluctuations, I average p_w over all years and then take the 15 occupations with the highest average p_w. The occupations are as follows:
 
-
 1. 43-9021.00 - Data Entry Keyers
 2. 15-1141.00 - Database Administrators
 3. 15-1199.06 - Database Architects
@@ -90,3 +89,35 @@ Once the estimate for p_w is constructed, the time-use adjustment factor needs t
 13. 29-2092.00 - Hearing Aid Specialists
 14. 15-1199.05 - Geographic Information Systems Technicians
 15. 15-2041.02 - Clinical Data Managers
+
+The majority of these make sense, with the exception of Hearing Aid Specialists, which may warrant going back to the data-related skillsets and fine-tune the selections a bit. Nevertheless, we can compute the distance between each ONET embedding category and these data-intensive landmark embeddings, and this distance serves as proxy for the time-use adjustment factor. To compute the distance, we compute the cosine distance between each ONET embedding and the data-intensive landmark embeddings. We then use the minimum cosine distance as a proxy for the time-use adjustment factor. This exercise is the equivalent of finding the nearest data-intensive landmark to each ONET embedding. 
+
+### A Brief Aside
+
+Before moving on, why do I think this works? The simple algebraic equivalence shows the time-use factor can be decomposed into two components. The first component the time-use adjustment factor measures the relative, average frequency an occupation is working with data. The second component, p_w, is an estimate for the percentage of workers in an occupation that are working with data in some capacity. Since the decomposition is multiplicative, these two components work to re-inforce or dampen the effects of each individual component. For example, even though an occupation may reside nearby a landmark data occupation, this does not necessarily imply a higher estimate for time-use since very few workers may be interfacing with data, and vice versa. 
+
+
+Here is a list of the top 20 occupations (that are not data-intensive occupations) based on time-use:
+
+1. 19-3099.00 - Social Scientists and Related Workers, All Other -  0.27 
+2. 15-1199.04 - Geospatial Information Scientists and Technologists - 0.20
+3. 15-1132.00 - Software Developers, Applications - 0.19
+4. 15.1133.00 - Software Developers, Systems Software - 0.18
+5. 15.1121.00 - Computer Systems Analysts - 0.18
+6. 17-3031.02 - Surveying and Mapping Technicians- 0.18
+7. 15-1131.00 - Computer Programmers - 0.17
+8. 13-1111.00 - Management Analysts  - 0.15
+9. 19-1041.00 - Epidemiologists - 0.15
+10. 17-1021.00 - Cartographers and Photogrammetrists - 0.13
+11. 15-2031.00 - Operations Research Analysts - 0.13
+12. 11-9121.01 - Clinical Research Coordinators - 0.13
+13. 13-2099.01 - Financial Quantitative Analysts - 0.13
+14. 15-1199.02 - Computer Systems Engineers/Architects - 0.12
+15. 19-3011.00 - Economists - 0.12 
+16. 19-1020.01 - Biologists 0.11
+17. 11-9121.00 - Natural Sciences Managers - 0.11 
+18. 19-1042.00 - Medical Scientists, Except Epidemiologists - 0.10
+19. 15-1199.00 - Computer Occupations, All Other - 0.10
+20. 15-1134.00 - Web Developers - 0.09
+
+# Labor Costs Estimate
