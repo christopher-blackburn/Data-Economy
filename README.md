@@ -75,38 +75,18 @@ With these skills identified, I create an indicator variable that signifies whet
 Once the estimate for p_w is constructed, the time-use adjustment factor needs to be proxied. To proxy this factor, I use the ONET embeddings to perform similarity analyses. Performing similarity analyses across all ONET categories would be a silly exercise. For instance, we do not care how similar a truck driver is to a fast food clerk because this tells us nothing about data-related job responsibilities for either occupation. Instead, I want to anchor the similarity analysis around comparisons to "known" data-intensive occupations. In this scenario, we are asking how similar a truck driver is to a data scientist. To select a set of "known" data-intensive occupations, I use p_w as a proxy to sort occupations by their "data-intensiveness". My assumption here is that when a higher fraction of job openings are required to have a data-related skillset, they are more likely to interface with data on routine basis. To reduce random fluctuations, I average p_w over all years and then take the 15 occupations with the highest average p_w. The occupations are as follows:
 
 
-
-ONET
-
-prop_data
-
-
-1. 43-9021.00 0.953296 Data Entry Keyers
-
-2. 15-1141.00 0.752208 Database Administrators
-
-3. 15-1199.06 0.738357 Database Architects
-
-4. 15-1199.07 0.680748 Data Warehousing Specialists
-
-5. 19-4061.00 0.656849 Social Science Research Assistants
-
-6. 15-1111.00 0.655171 Computer and Information Research Scientists
-
-7. 15-2041.01 0.646895 Biostatisticians
-
-8. 15-2041.00 0.636988 Statisticians
-
-9. 15-1199.08 0.631450 Business Intelligence Analysts
-
-10. 19-1029.01 0.605990 Bioinformatics Scientists
-
-11. 43-9111.00 0.573342 Statistical Assistants
-
-12. 19-3022.00 0.536608 Survey Researchers
-
-13. 29-2092.00 0.492055 Hearing Aid Specialists
-
-14. 15-1199.05 0.472552 Geographic Information Systems Technicians
-
-15. 15-2041.02 0.470103 Clinical Data Managers
+1. 43-9021.00 - Data Entry Keyers
+2. 15-1141.00 - Database Administrators
+3. 15-1199.06 - Database Architects
+4. 15-1199.07 - Data Warehousing Specialists
+5. 19-4061.00 - Social Science Research Assistants
+6. 15-1111.00 - Computer and Information Research Scientists
+7. 15-2041.01 - Biostatisticians
+8. 15-2041.00 - Statisticians
+9. 15-1199.08 - Business Intelligence Analysts
+10. 19-1029.01 - Bioinformatics Scientists
+11. 43-9111.00 - Statistical Assistants
+12. 19-3022.00 - Survey Researchers
+13. 29-2092.00 - Hearing Aid Specialists
+14. 15-1199.05 - Geographic Information Systems Technicians
+15. 15-2041.02 - Clinical Data Managers
