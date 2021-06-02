@@ -81,48 +81,32 @@ ONET
 prop_data
 
 
+1. 43-9021.00 0.953296 Data Entry Keyers
 
-716
-43-9021.00 0.953296 
+2. 15-1141.00 0.752208 Database Administrators
 
-121
-15-1141.00 0.752208 
+3. 15-1199.06 0.738357 Database Architects
 
-133
-15-1199.06 0.738357 
+4. 15-1199.07 0.680748 Data Warehousing Specialists
 
-134
-15-1199.07 0.680748 
+5. 19-4061.00 0.656849 Social Science Research Assistants
 
-279
-19-4061.00 0.656849 
+6. 15-1111.00 0.655171 Computer and Information Research Scientists
 
-113
-15-1111.00 0.655171 
+7. 15-2041.01 0.646895 Biostatisticians
 
-144
-15-2041.01 0.646895 
+8. 15-2041.00 0.636988 Statisticians
 
-143
-15-2041.00 0.636988 
+9. 15-1199.08 0.631450 Business Intelligence Analysts
 
-135
-15-1199.08 0.631450 
+10. 19-1029.01 0.605990 Bioinformatics Scientists
 
-230
-19-1029.01 0.605990 
+11. 43-9111.00 0.573342 Statistical Assistants
 
-725
-43-9111.00 0.573342 
+12. 19-3022.00 0.536608 Survey Researchers
 
-255
-19-3022.00 0.536608 
+13. 29-2092.00 0.492055 Hearing Aid Specialists
 
-509
-29-2092.00 0.492055 
+14. 15-1199.05 0.472552 Geographic Information Systems Technicians
 
-132
-15-1199.05 0.472552 
-
-145
-15-2041.02 0.470103 
+15. 15-2041.02 0.470103 Clinical Data Managers
