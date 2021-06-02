@@ -1,6 +1,8 @@
 import pandas as pd
 import glob
 from gensim.models.doc2vec import Doc2Vec
+from sklearn.metrics.pairwise import cosine_similarity
+import numpy as np
 
 '''
 -----------------------------------------------
@@ -264,7 +266,7 @@ annual_onet_data = pd.merge(annual_onet_data,annual_onet_counts,on=['ONET','year
 # Compute the proportion of workers with at least one data-related skill
 annual_onet_data['prop_data'] = annual_onet_data['data_skill']/annual_onet_data['total_onet']
 
-# Save the data
+# Save the data (commented out to avoid overwriting)
 #annual_onet_data.to_csv('E:/Research1/prediction/burning_glass/Chris/Output/onet_data.csv',index=False)
 
 '''
@@ -274,20 +276,36 @@ Compute an estimate for time-use adj. factor
 In this section, I use Doc2Vec to compute
 similarity metrics to estimate
 the time-use adjustment factor. 
+
+Note: I only compute the distance using the
+2011 Doc2Vec model. In practice, you would
+want to do this annually. However, I would
+recommend going about this a few ways...
+First, try averaging the distances across 
+all years and fixing this quantity in the 
+actual labor costs estimate. Otherwise,
+you may have issues comparing these across
+years. Second, if you want a time-varying
+estimate. Then you need to make sure the
+basis vectors are consistent across each 
+year. There are methods available to do this.
 '''
 
+# Load the output from the previous section. 
 onet_annual_data = pd.read_csv('E:/Research1/prediction/burning_glass/Chris/Output/onet_data.csv')
 
 # Compute the top 15 occupations with the highest data skill percentag
 onet_annual_mean = onet_annual_data.groupby('ONET')['prop_data'].mean().reset_index()
-
 onet_top_data = onet_annual_mean.sort_values(by='prop_data',ascending=False).head(15)
 
+# Load the 2011 Do2vec Model
 model = Doc2Vec.load('E:/Research1/prediction/burning_glass/Chris/Word2Vec/w2v2011')
 
+# Extract the ONET embeddings
 model_tags = model.docvecs.index2entity
 model_vecs = [model.docvecs[tag] for tag in model_tags]
 
+# Extract the Data-Intensive Landmarks
 data_vecs = []
 for idx, tag in enumerate(model_tags):
     if tag in list(onet_top_data['ONET']):
@@ -296,8 +314,8 @@ for idx, tag in enumerate(model_tags):
 data_vectors = [model_vecs[idx] for idx in data_vecs]
 
 
-from sklearn.metrics.pairwise import cosine_similarity
 
+# Find the minimum distance to the landmark data-intensive occupations
 min_distances = []
 for idx, vec in enumerate(model_vecs):
     dist = 0.0
@@ -306,10 +324,14 @@ for idx, vec in enumerate(model_vecs):
             dist = cosine_similarity(vec.reshape(1,1000),data_vec.reshape(1,1000))
     min_distances.append([model_tags[idx],dist[0][0]])
     
-import numpy as np
+
 # Create a dataframe of the distances and merge with the data
 distDF = pd.DataFrame.from_dict(dict(ONET=np.array(min_distances)[:,0],
                                     dist=np.array(min_distances)[:,1]))
 
+# Merge with the annual ONET data
 onet_dist = pd.merge(onet_annual_data,distDF,on='ONET',how='inner',validate='m:1')
+
+# Save the data (commented out to avoid overwriting)
+#onet_dist.to_csv('E:/Research1/prediction/burning_glass/Chris/output/onet_distance.csv,index=False)
 
