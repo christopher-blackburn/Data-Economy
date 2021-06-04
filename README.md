@@ -118,6 +118,7 @@ Here is a list of the top 20 occupations (that are not data-intensive landmarks)
 19. 15-1199.00 - Computer Occupations, All Other - 0.10
 20. 15-1134.00 - Web Developers - 0.09
 
+
 ### Relevant code and output
 
 Based on these estimates, I garner that we are being very conservative in how we estimate time-use factors, especially given the base assumption is 50 percent. 
@@ -131,3 +132,7 @@ With estimates for the time-use adjustment factor and p_w, we are ready to const
 ### Relevant code and output
 
 The code for the aggregation is found in [oes_costs.py](labor_costs/oes_costs.py) and the main figure for checking results is in [data_spending_growth.png](figures/data_spending_growth.png).
+
+# 4. Future Work
+
+One caveat to the above estimation strategy is that I only use the document embeddings trained for 2011 to estimate similarities between occupations. Why? The main reason is that because the CBOW bag of words model is initialized randomly for each annual training sample. Consequently, the basis vectors for each embedding space are not consistent across all years. This implies the annual variation in similarities may reflect the different initializations rather than any true semantic differences between occupations. There are methods available that attempt to align the embedding spaces to track semantic shifts across time. I can send these papers if interested. 
